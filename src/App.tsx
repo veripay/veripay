@@ -16,11 +16,21 @@ function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+    client.models.Todo.create({
+      content: window.prompt("Todo content"),
+      isDone: false
+    });
   }
 
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id });
+  }
+
+  function checkTodo(id: string, val: boolean) {
+    client.models.Todo.update({
+      id,
+      isDone: val
+    });
   }
 
   return (
@@ -31,7 +41,14 @@ function App() {
           <button onClick={createTodo}>+ new</button>
           <ul>
             {todos.map((todo) => (
-              <li key={todo.id} onClick={() => deleteTodo(todo.id)}>{todo.content}</li>
+              <li key={todo.id}>
+                <input type="checkbox"
+                  checked={!!todo.isDone}
+                  onChange={(e) => checkTodo(todo.id, e.target.checked)}>
+                </input>
+                {todo.content}
+                <button onClick={() => deleteTodo(todo.id)}>-</button>
+              </li>
             ))}
           </ul>
           <div>
