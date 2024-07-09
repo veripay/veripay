@@ -3,10 +3,20 @@
 This repo contains the frontend and backend code for Veripay.
 It uses AWS Amplify for hosting, auth, API, and the database.
 
-### Running Locally
+### Front-End Local Dev
 
-Go to Amplify console, click on "main" deployment, click
-deployments, then press "Download amplify_outputs.json".
+ 1. Go to Amplify console
+ 2. Click on "main" deployment
+ 3. Click deployments
+ 4. Press "Download amplify_outputs.json".
+
+### Back-End Local Dev
+
+1.
+
+```bash
+npx ampx sandbox
+```
 
 ### Deploying to AWS
 

@@ -7,57 +7,69 @@ import '@aws-amplify/ui-react/styles.css'
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [events, setEvents] = useState<Array<Schema["Event"]["type"]>>([]);
 
   useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
+    client.models.Event.observeQuery().subscribe({
+      next: (data) => setEvents([...data.items]),
     });
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({
-      content: window.prompt("Todo content"),
-      isDone: false
+  function createEvent(name: string, type: string, start: Date, end: Date, payment: number, lat: number, long: number) {
+    client.models.Event.create({
+      name,
+      type,
+      start: start.toISOString(),
+      end: end.toISOString(),
+      payment,
+      location: { lat, long }
     });
   }
 
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id });
-  }
-
-  function checkTodo(id: string, val: boolean) {
-    client.models.Todo.update({
-      id,
-      isDone: val
-    });
+  function deleteEvent(id: any) {
+    if (id && typeof id === "string") {
+      client.models.Event.delete({ id });
+    }
   }
 
   return (
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>{user?.signInDetails?.loginId}'s todos</h1>
-          <button onClick={createTodo}>+ new</button>
+          <h1>{user?.signInDetails?.loginId}</h1>
+
           <ul>
-            {todos.map((todo) => (
-              <li key={todo.id}>
-                <input type="checkbox"
-                  checked={!!todo.isDone}
-                  onChange={(e) => checkTodo(todo.id, e.target.checked)}>
-                </input>
-                {todo.content}
-                <button onClick={() => deleteTodo(todo.id)}>-</button>
+            {events.map((event) => (
+              <li key={event.id}>
+                {JSON.stringify(event)}
+                <button onClick={() => deleteEvent(event.id)}>-</button>
               </li>
             ))}
           </ul>
-          <div>
-            🥳 App successfully hosted. Try creating a new todo.
-            <br />
-            <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
-              Review next step of this tutorial.
-            </a>
-          </div>
+
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target as HTMLFormElement);
+            createEvent(
+              formData.get('name') as string,
+              formData.get('type') as string,
+              new Date(formData.get('start') as string),
+              new Date(formData.get('end') as string),
+              Number(formData.get('payment')),
+              Number(formData.get('lat')),
+              Number(formData.get('long'))
+            );
+            (e.target as HTMLFormElement).reset();
+          }}>
+            <input name="name" type="text" placeholder="Event Name" required />
+            <input name="type" type="text" placeholder="Event Type" required />
+            <input name="start" type="datetime-local" required />
+            <input name="end" type="datetime-local" required />
+            <input name="payment" type="number" step="0.01" placeholder="Payment" required />
+            <input name="lat" type="number" step="any" placeholder="Latitude" required />
+            <input name="long" type="number" step="any" placeholder="Longitude" required />
+            <button type="submit">Create Event</button>
+          </form>
 
           <button onClick={signOut}>Sign out</button>
         </main>

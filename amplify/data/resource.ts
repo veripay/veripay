@@ -1,41 +1,31 @@
-import {
-  type ClientSchema,
-  a,
-  defineData,
-  defineFunction,
-} from "@aws-amplify/backend";
-
-/*
-References:
-https://docs.amplify.aws/react/build-a-backend/data/custom-business-logic/
-https://docs.amplify.aws/react/build-a-backend/data/data-modeling/
-*/
+import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
 const schema = a.schema({
-  Todo: a
+  Event: a
     .model({
-      content: a.string(),
-      isDone: a.boolean(),
+      id: a.id(),
+      name: a.string(),
+      type: a.string(),
+      start: a.datetime(),
+      end: a.datetime(),
+      payment: a.float(),
+      location: a.ref("Location"),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
-  EchoResponse: a.customType({
-    content: a.string(),
-    executionDuration: a.float(),
+  Location: a.customType({
+    lat: a.float(),
+    long: a.float(),
   }),
 
-  echo: a
-    .query()
-    .arguments({ content: a.string() })
-    .returns(a.ref("EchoResponse"))
-    .authorization((allow) => [allow.publicApiKey()])
-    .handler(
-      a.handler.function(
-        defineFunction({
-          entry: "./echo_handler.ts",
-        })
-      )
-    ),
+  Athlete: a
+    .model({
+      id: a.id(), //FIXME Is this right for cognito id ref?
+      attended_events: a.integer(),
+      missed_events: a.integer(),
+      balance: a.float(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
