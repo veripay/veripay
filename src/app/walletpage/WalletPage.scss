@@ -1,0 +1,88 @@
+@import '../../assets/colors';
+
+.top-bar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: $secondary-color;
+  //background-color: #8a0000;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0 0 16px 16px;
+  z-index: 100;
+
+  img {
+    border-radius: 38px;
+    padding: 12px;
+    width: 76px;
+    height: 76px;
+  }
+
+  a {
+    display: flex;
+  }
+
+  h3 {
+    align-self: center;
+  }
+
+  .settings-icon {
+    cursor: pointer;
+
+    &:hover {
+      transition: 0.2s;
+      opacity: 0.6;
+    }
+  }
+
+  .settings-gear {
+    color: black;
+    text-decoration: none;
+    padding: 18px;
+    transition: 0.3s;
+
+    // Material Font Settings
+    font-size: 40px;
+    font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 20;
+  }
+}
+
+.balance-container {
+  background-color: rgba($secondary-color, 0.5);
+  position: sticky;
+  top: 76px;
+  padding: 30px 0;
+  z-index: 1;
+  transform: translateY(-20px);
+
+  h2 {
+    justify-content: center;
+    display: flex;
+    margin: 20px;
+  }
+}
+
+
+.transactions {
+  border-radius: 16px 16px 0 0;
+  background-color: white;
+  overflow: auto;
+  z-index: 10;
+  position: relative;
+  transform: translateY(-40px);
+}
+
+.transaction-container {
+  margin: 16px;
+  padding: 12px;
+  border-radius: 16px;
+  background-color: rgba($secondary-color, 0.2);
+
+  h2, p {
+    margin: 0;
+  }
+}

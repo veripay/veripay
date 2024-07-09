@@ -1,0 +1,40 @@
+@import '../assets/colors';
+
+.App {
+  text-align: center;
+}
+
+.bottom-nav-bar {
+  bottom: 0;
+  position: fixed;
+  background-color: $background-color;
+  width: 100%;
+  display: grid;
+  grid: "a b c";
+  grid-template-columns: 1fr 1fr 1fr;
+  z-index: 1000;
+
+  // Material Font Settings
+  font-size: 36px;
+  font-variation-settings:
+          'FILL' 0,
+          'wght' 500,
+          'GRAD' 0,
+          'opsz' 20;
+
+  a {
+    color: $text-color;
+    text-decoration: none;
+    padding: 12px;
+    justify-self: center;
+    transition: 0.3s;
+
+    &.active {
+      font-variation-settings:
+              'FILL' 1,
+              'wght' 500,
+              'GRAD' 200,
+              'opsz' 20;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "amount": 50.0,
+      "isDeposit": true,
+      "name": "From Practice"
+    },
+    {
+      "id": 2,
+      "amount": 12.5,
+      "isDeposit": true,
+      "name": "From Tutoring"
+    },
+    {
+      "id": 3,
+      "amount": 40,
+      "isDeposit": false,
+      "name": "Transfer to bank account"
+    },
+    {
+      "id": 4,
+      "amount": 22.0,
+      "isDeposit": true,
+      "name": "From MA 102"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Football Field",
+      "latlong":[38.82869054973737, -77.07063098421109],
+      "radius": 40,
+      "id": 1
+    },
+    {
+      "name": "Science Building",
+      "latlong":[38.82848035513778, -77.07296502646226],
+      "radius": 80,
+      "id": 2
+    },
+    {
+      "name": "Math Building",
+      "latlong":[38.82925320992215, -77.07351419958405],
+      "radius": 60,
+      "id": 3
+    }
+  ],
+  "events": [
+    {
+      "name": "Football Practice",
+      "startTime": 1717491600,
+      "endTime": 1717495200,
+      "value": 120.0,
+      "locationId": 1
+    },
+    {
+      "name": "MA 121",
+      "startTime": 1717497000,
+      "endTime": 1717502400,
+      "value": 40.0,
+      "locationId": 3
+    },
+    {
+      "name": "Tutoring",
+      "startTime": 1717502400,
+      "endTime": 1717506000,
+      "value": 120.5,
+      "locationId": 2
+    },
+    {
+      "name": "CHEM 101",
+      "startTime": 	1718218800,
+      "endTime": 1718222400,
+      "value": 95.0,
+      "locationId": 2
+    }
+  ]
+}
