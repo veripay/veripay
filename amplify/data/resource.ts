@@ -18,7 +18,7 @@ const schema = a.schema({
   Athlete: a
     .model({
       id: a.string(),
-      attended_events: a.id().array().default([0]),
+      attended_events: a.id().array(),
       deposited: a.float().default(0), //balance = sum attended_events - deposited
     })
     .authorization((allow) => [allow.publicApiKey()]),
