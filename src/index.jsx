@@ -8,20 +8,22 @@ import Page404 from "./Page404.jsx";
 import App from "./app/App.jsx";
 import DirectorPage from "./director/DirectorPage.jsx";
 import DirectorLogin from "./director/DirectorLogin.jsx";
+import IndexPage from "./home/IndexPage.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/app/*" element={<App />} />
-        <Route path="/join/:uuid" element={null} />
-        <Route path="*" element={<Page404 />} />
-        <Route path="/director" element={<DirectorPage />} />
-        <Route path="/login" element={<DirectorLogin />} />
-      </Routes>
-    </Router>
-  </React.StrictMode>
+    <React.StrictMode>
+        <Router>
+            <Routes>
+                <Route path="/" element={<IndexPage />}></Route>
+                <Route path="/app/*" element={<App/>}/>
+                <Route path="/join/:uuid" element={null}/>
+                <Route path="/director" element={<DirectorPage/>}/>
+                <Route path="/login" element={<DirectorLogin/>}/>
+                <Route path="*" element={<Page404/>}/>
+            </Routes>
+        </Router>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
