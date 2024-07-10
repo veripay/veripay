@@ -6,8 +6,8 @@ import {Route, Routes} from "react-router";
 import {BrowserRouter as Router} from "react-router-dom"
 import Page404 from "./Page404.jsx";
 import App from "./app/App.jsx";
-import DirectorPage from "./app/director/DirectorPage.jsx";
-import DirectorLogin from "./app/director/DirectorLogin.jsx";
+import DirectorPage from "./director/DirectorPage.jsx";
+import DirectorLogin from "./director/DirectorLogin.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
