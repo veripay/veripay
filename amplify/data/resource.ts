@@ -12,7 +12,8 @@ const schema = a.schema({
       long: a.float().required(),
       radius: a.float().default(5),
       attended: a.boolean().required().default(false),
-      athleteId: a.id().required()
+      athleteId: a.id().required(),
+      athlete: a.belongsTo("Athlete", "athleteId"),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -28,6 +29,7 @@ const schema = a.schema({
       athleteId: a.id(),
       amount: a.float().required(),
       isBankDeposit: a.boolean().required(),
+      athlete: a.belongsTo("Athlete", "athleteId"),
   }).authorization((allow) => [allow.publicApiKey()]),
 });
 
