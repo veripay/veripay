@@ -8,12 +8,11 @@ const schema = a.schema({
       start: a.datetime().required(),
       end: a.datetime().required(),
       payment: a.float().required(),
-      lat: a.float().required(),
-      long: a.float().required(),
-      radius: a.float().default(5),
       attended: a.boolean().required().default(false),
       athleteId: a.id().required(),
       athlete: a.belongsTo("Athlete", "athleteId"),
+      location: a.belongsTo("Location", "locationId"),
+      locationId: a.id().required(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -31,6 +30,16 @@ const schema = a.schema({
       isBankDeposit: a.boolean().required(),
       athlete: a.belongsTo("Athlete", "athleteId"),
   }).authorization((allow) => [allow.publicApiKey()]),
+
+    Location: a.model({
+        name: a.string().required(),
+        radius: a.float().required(),
+        lat: a.float().required(),
+        long: a.float().required(),
+        color: a.string().required(),
+        events: a.hasMany("Event", "locationId"),
+
+    })
 });
 
 export type Schema = ClientSchema<typeof schema>;
