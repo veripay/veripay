@@ -38,8 +38,7 @@ const schema = a.schema({
         long: a.float().required(),
         color: a.string().required(),
         events: a.hasMany("Event", "locationId"),
-
-    })
+    }).authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
