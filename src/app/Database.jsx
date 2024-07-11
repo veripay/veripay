@@ -1,4 +1,4 @@
-import data from './app/data.json';
+import data from './data.json';
 // import {Schema} from '../../amplify/data/resource';
 import { generateClient } from "aws-amplify/data";
 
