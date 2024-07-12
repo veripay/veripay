@@ -23,7 +23,6 @@ const schema = a.schema({
             password: a.string().required(),
             events: a.hasMany("Event", "athleteId"),
             transactions: a.hasMany("Transaction", "athleteId"),
-            // deposited: a.float().default(0), //balance = sum attended_events - deposited
         })
         .authorization((allow) => [allow.publicApiKey()]),
 
