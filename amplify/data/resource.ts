@@ -18,6 +18,9 @@ const schema = a.schema({
 
     Athlete: a
         .model({
+            name: a.string().required(),
+            email: a.string().required(),
+            password: a.string().required(),
             events: a.hasMany("Event", "athleteId"),
             transactions: a.hasMany("Transaction", "athleteId"),
             // deposited: a.float().default(0), //balance = sum attended_events - deposited
