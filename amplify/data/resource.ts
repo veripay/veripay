@@ -16,15 +16,13 @@ const schema = a.schema({
         })
         .authorization((allow) => [allow.publicApiKey()]),
 
-    Athlete: a
-        .model({
-            name: a.string().required(),
-            email: a.string().required(),
-            password: a.string().required(),
-            events: a.hasMany("Event", "athleteId"),
-            transactions: a.hasMany("Transaction", "athleteId"),
-        })
-        .authorization((allow) => [allow.publicApiKey()]),
+    Athlete: a.model({
+        name: a.string().required(),
+        email: a.string().required(),
+        password: a.string().required(),
+        events: a.hasMany("Event", "athleteId"),
+        transactions: a.hasMany("Transaction", "athleteId"),
+    }).authorization((allow) => [allow.publicApiKey()]),
 
     Transaction: a.model({
         athleteId: a.id(),
