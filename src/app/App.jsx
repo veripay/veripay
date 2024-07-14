@@ -3,24 +3,24 @@ import {Component} from "react";
 import {Route, Routes} from "react-router";
 import MapPage from "./mappage/MapPage.jsx";
 import {Link, NavLink} from "react-router-dom";
-import Database from "./Database.jsx";
+import Database from "../Database.jsx";
 import SchedulePage from "./schedulepage/SchedulePage.jsx";
 import WalletPage from "./walletpage/WalletPage.jsx";
 
-import { Amplify } from 'aws-amplify';
-import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
+// import { Amplify } from 'aws-amplify';
+// import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
 
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: 'YOUR_USER_POOL_ID',
-      userPoolClientId: 'YOUR_CLIENT_ID',
-      region: 'YOUR_REGION',
-    },
-  },
-});
-
-cognitoUserPoolsTokenProvider.setKeyValueStorage(window.localStorage);
+// Amplify.configure({
+//   Auth: {
+//     Cognito: {
+//       userPoolId: 'YOUR_USER_POOL_ID',
+//       userPoolClientId: 'YOUR_CLIENT_ID',
+//       region: 'YOUR_REGION',
+//     },
+//   },
+// });
+//
+// cognitoUserPoolsTokenProvider.setKeyValueStorage(window.localStorage);
 
 
 export default class App extends Component {
@@ -29,7 +29,7 @@ export default class App extends Component {
 
     this.state = {latlong: [], nextEvent: null}
 
-    this.databaseConnection = new Database();
+    this.databaseConnection = Database.database;
 
     this.updateLocation = this.updateLocation.bind(this);
 
@@ -42,16 +42,17 @@ export default class App extends Component {
 
   componentDidMount() {
     this.updateLocation()
+    this.databaseConnection.isNewUpdate().then(isNew => isNew ? this.setState({}) : null)
 
-    let nextEvent = this.databaseConnection.getNextEvent(new Date());
-
-    if (nextEvent !== null) {
-      nextEvent.callback = setTimeout(() => this.startCheckEvent(nextEvent), 1000 /*(nextEvent.startTime * 1000) - (new Date())*/);
-      // nextEvent.totalChecks = 0;
-      // nextEvent.passedChecks = 0;
-
-      this.setState({nextEvent});
-    }
+    // let nextEvent = this.databaseConnection.getNextEvent(new Date());
+    //
+    // if (nextEvent !== null) {
+    //   nextEvent.callback = setTimeout(() => this.startCheckEvent(nextEvent), 1000 /*(nextEvent.startTime * 1000) - (new Date())*/);
+    //   // nextEvent.totalChecks = 0;
+    //   // nextEvent.passedChecks = 0;
+    //
+    //   this.setState({nextEvent});
+    // }
   }
 
   startCheckEvent(event) {
@@ -65,9 +66,9 @@ export default class App extends Component {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(pos => {
         this.setState({latlong: [
-            // pos.coords.latitude,
-            // pos.coords.longitude
-            38.829008416216084, -77.07319429791512
+            pos.coords.latitude,
+            pos.coords.longitude
+            // 38.829008416216084, -77.07319429791512
           ]
         });
       }, (err) => {

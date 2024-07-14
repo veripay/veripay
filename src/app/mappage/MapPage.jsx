@@ -6,7 +6,13 @@ export default class MapPage extends Component {
     constructor() {
         super();
 
+        this.state = {locations: []}
+
     }
+
+    // updateLocations() {
+    //
+    // }
 
     render() {
         return (

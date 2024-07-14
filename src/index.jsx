@@ -9,6 +9,10 @@ import App from "./app/App.jsx";
 import DirectorPage from "./director/DirectorPage.jsx";
 import DirectorLogin from "./director/DirectorLogin.jsx";
 import IndexPage from "./home/IndexPage.jsx";
+import outputs from "../amplify_outputs.json";
+import {Amplify} from "aws-amplify";
+
+Amplify.configure(outputs);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,7 +23,7 @@ root.render(
                 <Route path="/app/*" element={<App/>}/>
                 <Route path="/join/:uuid" element={null}/>
                 <Route path="/director" element={<DirectorPage/>}/>
-                <Route path="/login" element={<DirectorLogin/>}/>
+                <Route path="/director/login" element={<DirectorLogin/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
         </Router>

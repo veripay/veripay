@@ -11,9 +11,9 @@ export function isPointInGeofence({name, latlong, radius, id}, point) {
 
 }
 
-export function getGeofence({name, latlong, radius, id}, color) {
+export function getGeofence({name, lat, long, radius, id, color}) {
   return (
-    <Circle center={latlong} radius={radius} pathOptions={{fillColor: color, fillOpacity: 0.5}} stroke={false} key={name} >
+    <Circle center={[lat, long]} radius={radius} pathOptions={{fillColor: color, fillOpacity: 0.5}} stroke={false} key={name} >
       <Tooltip>
         {name}
       </Tooltip>

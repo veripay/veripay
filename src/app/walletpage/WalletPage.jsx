@@ -1,7 +1,6 @@
 import './WalletPage.scss'
 import {Component} from "react";
 import defaultProfileImage from "../../assets/defaultProfileImage.png"
-import settingsGear from "../../assets/settingsGear.svg"
 import {Link} from "react-router-dom";
 import {formatMoney} from "../utils.jsx";
 
@@ -21,11 +20,9 @@ export default class WalletPage extends Component {
       </div>
 
       <div className="balance-container">
-        <h2>$30.52</h2>
+        <h2>$XX.XX</h2>
       </div>
       <div className="transactions">
-        {this.props.database.getTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
-        {this.props.database.getTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
         {this.props.database.getTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
       </div>
     </>;

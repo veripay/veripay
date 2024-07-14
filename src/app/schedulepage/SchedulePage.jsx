@@ -40,7 +40,7 @@ export default class SchedulePage extends Component {
         </div>
         <div className="background-div">
           <div className="current-time" style={{top: (hourBlockHeight * (hours + 0.5)) + "px"}}></div>
-          {new Array(25).fill(0).map((v, i) => <TimeDivider hourInDay={i}/>)}
+          {new Array(25).fill(0).map((v, i) => <TimeDivider hourInDay={i} key={i}/>)}
           {this.props.database.getEventsOnDate(this.state.currentDay).map(ev => <Event {...ev} />)}
         </div>
       </div>
@@ -67,17 +67,18 @@ function TimeDivider({hourInDay}) {
   )
 }
 
-function Event({name, startTime, endTime, value, locationId}) {
-  let hours = (endTime - startTime) / 3600;
-  let startDate = new Date(startTime * 1000);
-  let startHours = startDate.getHours() + startDate.getMinutes() / 60 + startDate.getSeconds() / 3600;
+function Event({name, start, end, payment, locationId}) {
+  let startDate = new Date(start);
+    let endDate = new Date(end);
+    let hours = (endDate - startDate) / 3600 / 1000;
+    let startHours = startDate.getHours() + startDate.getMinutes() / 60 + startDate.getSeconds() / 3600;
   console.log(startHours)
   return (
     <div className="event-container"
          style={{height: (hours * hourBlockHeight) + "px", top: (hourBlockHeight * (startHours + 0.5)) + "px"}}>
       <p><b>{name}</b></p>
-      <p>{formatTime(startDate)} - {formatTime(new Date(endTime * 1000))}</p>
-      <p className="event-money"><b>{`+$${formatMoney(value)}`}</b></p>
+      <p>{formatTime(startDate)} - {formatTime(new Date(end))}</p>
+      <p className="event-money"><b>{`+$${formatMoney(payment)}`}</b></p>
     </div>
   )
 }
