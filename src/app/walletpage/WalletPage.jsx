@@ -2,7 +2,7 @@ import './WalletPage.scss'
 import {Component} from "react";
 import defaultProfileImage from "../../assets/defaultProfileImage.png"
 import {Link} from "react-router-dom";
-import {formatMoney} from "../utils.jsx";
+import {formatDateShort, formatMoney} from "../utils.jsx";
 
 export default class WalletPage extends Component {
   constructor(props) {
@@ -20,18 +20,21 @@ export default class WalletPage extends Component {
       </div>
 
       <div className="balance-container">
-        <h2>$XX.XX</h2>
+        <h2>${formatMoney(this.props.database.getFilteredTransactions().reduce((prev, next) => prev + (next.amount * (next.isWithdrawal ? -1 : 1)), 0))}</h2>
       </div>
       <div className="transactions">
-        {this.props.database.getTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
+        {this.props.database.getFilteredTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
       </div>
     </>;
   }
 }
 
-function Transaction({amount, isDeposit, name}) {
+function Transaction({amount, isWithdrawal, memo, date}) {
   return <div className="transaction-container">
-    <p>{name}</p>
-    <h2>{isDeposit ? '+' : '-'}${formatMoney(amount)}</h2>
+    <div className={"top-row"}>
+      <p>{memo}</p>
+      <p className={"date"}>{formatDateShort(new Date(date))}</p>
+    </div>
+    <h2 className={isWithdrawal ? "withdrawal" : ""}>{isWithdrawal ? '- ' : '+ '}${formatMoney(amount)}</h2>
   </div>
 }

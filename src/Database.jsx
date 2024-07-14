@@ -13,8 +13,6 @@ export default class Database {
         this.transactions = [];
 
         this.client = generateClient();
-        //
-        console.log(this.client.models);
 
         this.updatePromise = null;
 
@@ -82,20 +80,18 @@ export default class Database {
     // }
 
     getNextEvent(datetime) {
-    //     let nextEvents = this.getEvents().filter(({startTime}) => new Date(startTime * 1000) >= datetime)
-    //
-    //     return nextEvents.length > 0 ? nextEvents[0] : null;
+        //     let nextEvents = this.getEvents().filter(({startTime}) => new Date(startTime * 1000) >= datetime)
+        //
+        //     return nextEvents.length > 0 ? nextEvents[0] : null;
         return null;
     }
 
     getEventsOnDate(date) {
-        console.log(this.events);
 
         let dayCopy = new Date(date.getTime());
         dayCopy.setHours(0, 0, 0, 0);
 
         let eventsOnDay = this.getEvents().filter(({start}) => {
-            console.log(start);
             let startDate = new Date(start);
             let secondsDiff = startDate - dayCopy;
 
@@ -103,24 +99,53 @@ export default class Database {
         });
 
         return eventsOnDay;
-        return [];
     }
 
     getEvents() {
         // return data["events"];
-      return this.events;
+        return this.events;
     }
 
     getLocations() {
-      return this.locations;
+        return this.locations;
     }
 
-    getTransactions(reverse = false) {
-        // if (reverse) {
-        //     return data["transactions"].reverse();
-        // } else {
-        //     return data["transactions"];
-        // }
-      return this.transactions;
+    getTransactions() {
+        return this.transactions;
+    }
+
+    getLocationQuick(locationId) {
+        return this.locations.find(({id}) => id === locationId);
+    }
+
+    getFilteredTransactions() {
+        let userTransactions = [];
+
+        for (let deposit of this.getTransactions()) {
+            userTransactions.push({
+                memo: "Transfer to bank account",
+                date: new Date(deposit.createdAt),
+                amount: deposit.amount,
+                isWithdrawal: true,
+                id: deposit.id
+            })
+        }
+
+        for (let paidEvent of this.getPaidEvents()) {
+            userTransactions.push({
+                memo: `From ${paidEvent.type} at ${this.getLocationQuick(paidEvent.locationId).name}`,
+                date: new Date(paidEvent.end),
+                amount: paidEvent.payment,
+                isWithdrawal: false,
+                id: paidEvent.id
+            })
+        }
+
+        return userTransactions.sort((a, b) => b.date - a.date);
+    }
+
+    getPaidEvents() {
+        let now = new Date();
+        return this.getEvents().filter(({attended, end}) => attended && (now > new Date(end)));
     }
 }

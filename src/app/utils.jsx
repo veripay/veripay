@@ -20,12 +20,17 @@ export function getGeofence({name, lat, long, radius, id, color}) {
     </Circle>)
 }
 
-
-
 export function formatMoney(value) {
   if (value % 1 !== 0) {
     return value.toFixed(2);
   } else {
     return value.toFixed(0);
   }
+}
+
+export function formatDateShort(date) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short', // abbreviated month name
+    day: 'numeric'  // numeric day of the month
+  }).format(date);
 }

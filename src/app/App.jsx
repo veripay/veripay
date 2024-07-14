@@ -7,22 +7,6 @@ import Database from "../Database.jsx";
 import SchedulePage from "./schedulepage/SchedulePage.jsx";
 import WalletPage from "./walletpage/WalletPage.jsx";
 
-// import { Amplify } from 'aws-amplify';
-// import { cognitoUserPoolsTokenProvider } from 'aws-amplify/auth/cognito';
-
-// Amplify.configure({
-//   Auth: {
-//     Cognito: {
-//       userPoolId: 'YOUR_USER_POOL_ID',
-//       userPoolClientId: 'YOUR_CLIENT_ID',
-//       region: 'YOUR_REGION',
-//     },
-//   },
-// });
-//
-// cognitoUserPoolsTokenProvider.setKeyValueStorage(window.localStorage);
-
-
 export default class App extends Component {
   constructor() {
     super();
@@ -62,7 +46,6 @@ export default class App extends Component {
 
 
   updateLocation() {
-    console.log(this.databaseConnection.getNextEvent(new Date()))
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(pos => {
         this.setState({latlong: [
