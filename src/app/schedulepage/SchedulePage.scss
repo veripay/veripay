@@ -102,6 +102,14 @@ button {
     margin: 4px 16px;
   }
 
+  &.attended {
+    background-color: $good-color;
+  }
+
+  &.missed {
+    background-color: $bad-color;
+  }
+
   .event-money {
     font-family: "GaretBold", sans-serif;
     color: green;

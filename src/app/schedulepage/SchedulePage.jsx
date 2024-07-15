@@ -67,14 +67,14 @@ function TimeDivider({hourInDay}) {
   )
 }
 
-function Event({name, start, end, payment, locationId}) {
+function Event({name, start, end, payment, locationId, attended}) {
   let startDate = new Date(start);
     let endDate = new Date(end);
     let hours = (endDate - startDate) / 3600 / 1000;
     let startHours = startDate.getHours() + startDate.getMinutes() / 60 + startDate.getSeconds() / 3600;
   console.log(startHours)
   return (
-    <div className="event-container"
+    <div className={"event-container " + (attended ? "attended" : "")}
          style={{height: (hours * hourBlockHeight) + "px", top: (hourBlockHeight * (startHours + 0.5)) + "px"}}>
       <p><b>{name}</b></p>
       <p>{formatTime(startDate)} - {formatTime(new Date(end))}</p>
