@@ -3,18 +3,28 @@ import {Component} from "react";
 import defaultProfileImage from "../../assets/defaultProfileImage.png"
 import {Link} from "react-router-dom";
 import {formatDateShort, formatMoney} from "../utils.jsx";
+import Cookies from "js-cookie";
 
 export default class WalletPage extends Component {
   constructor(props) {
     super(props);
+
+    this.logout = this.logout.bind(this);
+  }
+
+  logout() {
+    // Cookies.set("athlete-id", undefined);
+    // Cookies.remove("athlete-id");
+    // window.location.reload();
+    this.props.updateLogin();
   }
 
   render() {
     return <>
       <div className="top-bar">
-        <img src={defaultProfileImage} alt="Profile"/>
-        <h3>Bob Dylan</h3>
-        <Link className={"material-symbols-rounded settings-gear"} to="/app/settings">
+        <img src={defaultProfileImage} alt="Profile" onClick={this.logout}/>
+        <h3>{this.props.database.getAthlete(this.props.athleteId).name}</h3>
+        <Link className={"material-symbols-rounded settings-gear"} >
           Settings
         </Link>
       </div>

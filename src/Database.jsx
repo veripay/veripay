@@ -110,6 +110,14 @@ export default class Database {
         return this.locations;
     }
 
+    getAthletes() {
+        return this.athletes;
+    }
+
+    getAthlete(athleteId) {
+        return this.athletes.find(({id}) => athleteId === id);
+    }
+
     getTransactions() {
         return this.transactions;
     }

@@ -10,10 +10,6 @@ export default class MapPage extends Component {
 
     }
 
-    // updateLocations() {
-    //
-    // }
-
     render() {
         return (
             <div className="map-container">
