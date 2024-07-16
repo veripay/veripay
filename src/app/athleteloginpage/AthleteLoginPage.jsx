@@ -17,14 +17,14 @@ export default class AthleteLoginPage extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.email, this.state.password);
         let users = this.props.database.getAthletes();
 
         let authenticatedUsers = users.filter(user => user.email === this.state.email && user.password === this.state.password);
-        console.log(authenticatedUsers,authenticatedUsers.length);
+
         if (authenticatedUsers.length > 0) {
             Cookies.set('athlete-id', authenticatedUsers[0].id);
-            this.setState({redirect: true});
+            // this.setState({redirect: true});
+            this.props.updateLogin();
         } else {
             this.setState({error: "Email or password not found"});
         }
@@ -41,7 +41,7 @@ export default class AthleteLoginPage extends React.Component {
 
     render() {
         return (<>
-                {this.state.redirect ? <Navigate to={"/app"} /> : ""}
+                {/*{this.state.redirect ? <Navigate to={"/app"} /> : ""}*/}
                 <div className="login-container">
                     <div className="login-card">
                         <h1 className={"athlete"}>Welcome</h1>

@@ -108,6 +108,11 @@ button {
 
   &.missed {
     background-color: $bad-color;
+
+    .event-money {
+      color: $accent-color;
+      text-decoration: line-through;
+    }
   }
 
   .event-money {

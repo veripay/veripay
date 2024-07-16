@@ -13,9 +13,7 @@ export default class WalletPage extends Component {
   }
 
   logout() {
-    // Cookies.set("athlete-id", undefined);
-    // Cookies.remove("athlete-id");
-    // window.location.reload();
+    Cookies.remove("athlete-id");
     this.props.updateLogin();
   }
 
@@ -23,7 +21,7 @@ export default class WalletPage extends Component {
     return <>
       <div className="top-bar">
         <img src={defaultProfileImage} alt="Profile" onClick={this.logout}/>
-        <h3>{this.props.database.getAthlete(this.props.athleteId).name}</h3>
+        <h3>{this.props.database.loaded ? this.props.database.getLoggedInAthlete().name : ""}</h3>
         <Link className={"material-symbols-rounded settings-gear"} >
           Settings
         </Link>
@@ -39,7 +37,7 @@ export default class WalletPage extends Component {
   }
 }
 
-function Transaction({amount, isWithdrawal, memo, date}) {
+export function Transaction({amount, isWithdrawal, memo, date}) {
   return <div className="transaction-container">
     <div className={"top-row"}>
       <p>{memo}</p>

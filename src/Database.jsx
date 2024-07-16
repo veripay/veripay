@@ -12,9 +12,12 @@ export default class Database {
         this.athletes = [];
         this.transactions = [];
 
+        this.loggedInAthlete = null;
+
         this.client = generateClient();
 
         this.updatePromise = null;
+        this.loaded = false;
 
     }
 
@@ -24,10 +27,18 @@ export default class Database {
                 this.updateEvents(),
                 this.updateLocations(),
                 this.updateTransactions(),]);
+            this.loaded = true;
             return true;
         }
         return false;
+    }
 
+    logInAthlete(athleteId) {
+        this.loggedInAthlete = athleteId;
+    }
+
+    logOutAthlete() {
+        this.loggedInAthlete = null;
     }
 
     getModels() {
@@ -79,13 +90,6 @@ export default class Database {
     //     return null;
     // }
 
-    getNextEvent(datetime) {
-        //     let nextEvents = this.getEvents().filter(({startTime}) => new Date(startTime * 1000) >= datetime)
-        //
-        //     return nextEvents.length > 0 ? nextEvents[0] : null;
-        return null;
-    }
-
     getEventsOnDate(date) {
 
         let dayCopy = new Date(date.getTime());
@@ -102,8 +106,17 @@ export default class Database {
     }
 
     getEvents() {
-        // return data["events"];
+        if (this.loggedInAthlete !== null) {
+            return this.events.filter(({athleteId}) => athleteId === this.loggedInAthlete)
+        }
         return this.events;
+    }
+
+    getTransactions() {
+        if (this.loggedInAthlete !== null) {
+            return this.transactions.filter(({athleteId}) => athleteId === this.loggedInAthlete)
+        }
+        return this.transactions;
     }
 
     getLocations() {
@@ -114,12 +127,8 @@ export default class Database {
         return this.athletes;
     }
 
-    getAthlete(athleteId) {
-        return this.athletes.find(({id}) => athleteId === id);
-    }
-
-    getTransactions() {
-        return this.transactions;
+    getLoggedInAthlete() {
+        return this.athletes.find(({id}) => this.loggedInAthlete === id);
     }
 
     getLocationQuick(locationId) {

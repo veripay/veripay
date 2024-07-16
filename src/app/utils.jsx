@@ -1,4 +1,5 @@
 import {Circle, Tooltip} from "react-leaflet";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export function isPointInGeofence({name, latlong, radius, id}, point) {
   const km = radius / 1000;
@@ -34,3 +35,19 @@ export function formatDateShort(date) {
     day: 'numeric'  // numeric day of the month
   }).format(date);
 }
+
+// export function NavigateWrapper() {
+//   let navigate = useNavigate();
+//
+// }
+
+export const withRouter = WrappedComponent => props => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  return (
+      <WrappedComponent
+          {...props}
+          {...{ navigate,location /* other hooks */ }}
+      />
+  );
+};
