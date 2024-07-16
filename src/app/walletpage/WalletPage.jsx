@@ -10,11 +10,16 @@ export default class WalletPage extends Component {
     super(props);
 
     this.logout = this.logout.bind(this);
+    this.handleTransferClick = this.handleTransferClick.bind(this);
   }
 
   logout() {
     Cookies.remove("athlete-id");
     this.props.updateLogin();
+  }
+
+  handleTransferClick(e) {
+    this.props.database.depositAmount(this.props.database.sumBalance()).then(() => this.props.database.updateTransactions()).then(() => this.forceUpdate());
   }
 
   render() {
@@ -28,10 +33,12 @@ export default class WalletPage extends Component {
       </div>
 
       <div className="balance-container">
-        <h2>${formatMoney(this.props.database.getFilteredTransactions().reduce((prev, next) => prev + (next.amount * (next.isWithdrawal ? -1 : 1)), 0))}</h2>
+        <h2>${formatMoney(this.props.database.sumBalance())}</h2>
       </div>
       <div className="transactions">
-        {this.props.database.getFilteredTransactions(true).map(transaction => <Transaction key={transaction.id} {...transaction} />)}
+        <button className={"transfer-btn"} onClick={this.handleTransferClick} disabled={this.props.database.sumBalance() <= 0}><h2>Transfer to Bank</h2></button>
+        {this.props.database.getFilteredTransactions(true).map(transaction => <Transaction
+            key={transaction.id} {...transaction} />)}
       </div>
     </>;
   }

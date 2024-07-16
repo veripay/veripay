@@ -16,12 +16,6 @@ class App extends Component {
 
     this.state = {latlong: [], nextEvent: null, athleteId: Cookies.get("athlete-id")}
 
-    // if (this.state.athleteId === undefined && this.props.location.pathname !== "/app/login") {
-    //   console.log(this.props.location)
-    //   this.props.navigate("/app/login");
-    //   console.log("afternave")
-    // }
-
     this.databaseConnection = Database.database;
 
     this.updateLocation = this.updateLocation.bind(this);
@@ -36,7 +30,7 @@ class App extends Component {
 
   updateLogin() {
     this.setState({athleteId: Cookies.get("athlete-id")});
-    this.props.navigate("/app/login");
+    this.props.navigate("/app/login/");
   }
 
   checkLoginState() {
@@ -46,10 +40,10 @@ class App extends Component {
       this.databaseConnection.logOutAthlete();
     }
 
-    if (this.state.athleteId === undefined && this.props.location.pathname !== "/app/login") {
-      this.props.navigate("/app/login");
-    } else if (this.state.athleteId !== undefined && this.props.location.pathname === "/app/login") {
-      this.props.navigate("/app");
+    if (this.state.athleteId === undefined && this.props.location.pathname !== "/app/login/") {
+      this.props.navigate("/app/login/");
+    } else if (this.state.athleteId !== undefined && this.props.location.pathname === "/app/login/") {
+      this.props.navigate("/app/");
     }
   }
 
@@ -103,14 +97,14 @@ class App extends Component {
       <>
         <Routes>
           <Route path="/" element={<SchedulePage database={this.databaseConnection} athleteId={this.state.athleteId}/>} />
-          <Route path="/map" element={<MapPage latlong={this.state.latlong} database={this.databaseConnection} athleteId={this.state.athleteId} />} />
-          <Route path="/wallet" element={<WalletPage database={this.databaseConnection} athleteId={this.state.athleteId} updateLogin={this.updateLogin} />} />
-          <Route path="/login" element={<AthleteLoginPage database={this.databaseConnection} updateLogin={this.updateLogin}/>}  />
+          <Route path="/map/" element={<MapPage latlong={this.state.latlong} database={this.databaseConnection} athleteId={this.state.athleteId} />} />
+          <Route path="/wallet/" element={<WalletPage database={this.databaseConnection} athleteId={this.state.athleteId} updateLogin={this.updateLogin} />} />
+          <Route path="/login/" element={<AthleteLoginPage database={this.databaseConnection} updateLogin={this.updateLogin}/>}  />
         </Routes>
         <div className="bottom-nav-bar material-symbols-rounded" style={{display: this.state.athleteId ? "" : "none"}} >
-          <NavLink to="/app" end>Calendar_Today</NavLink>
-          <NavLink to="/app/map">My_Location</NavLink>
-          <NavLink to="/app/wallet">Account_Balance</NavLink>
+          <NavLink to="/app/" end>Calendar_Today</NavLink>
+          <NavLink to="/app/map/">My_Location</NavLink>
+          <NavLink to="/app/wallet/">Account_Balance</NavLink>
         </div>
       </>
     )

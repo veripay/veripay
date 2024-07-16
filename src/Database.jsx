@@ -161,8 +161,24 @@ export default class Database {
         return userTransactions.sort((a, b) => b.date - a.date);
     }
 
+    sumBalance() {
+        return this.getFilteredTransactions().reduce((prev, next) => prev + (next.amount * (next.isWithdrawal ? -1 : 1)), 0);
+    }
+
     getPaidEvents() {
         let now = new Date();
         return this.getEvents().filter(({attended, end}) => attended && (now > new Date(end)));
+    }
+
+    async depositAmount(amount) {
+        if (this.loggedInAthlete === null) {
+            throw Error("No athlete logged in to deposit");
+        }
+
+        return await this.getModels().Transaction.create({
+            athleteId: this.loggedInAthlete,
+            amount,
+            isBankDeposit: true,
+        });
     }
 }

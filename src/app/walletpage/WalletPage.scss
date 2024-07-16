@@ -67,6 +67,34 @@
 }
 
 
+.transfer-btn {
+  display: block;
+  margin: 16px auto;
+  width: fit-content;
+  padding: 18px 72px;
+  border-radius: 32px;
+  background-color: $secondary-color;
+  transition: 0.3s;
+  cursor: pointer;
+
+  * {
+    margin: 0;
+    font-weight: normal;
+  }
+
+  &:hover {
+    scale: 105%;
+  }
+
+  &:active {
+    background-color: rgba($secondary-color, .5);
+  }
+
+  &:disabled {
+    background-color: lightgrey;
+  }
+}
+
 .transactions {
   border-radius: 16px 16px 0 0;
   background-color: white;
