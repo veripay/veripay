@@ -22,8 +22,7 @@ root.render(
                 <Route path="/" element={<IndexPage />}></Route>
                 <Route path="/app/*" element={<App/>}/>
                 <Route path="/join/:uuid" element={null}/>
-                <Route path="/director" element={<DirectorPage/>}/>
-                <Route path="/director/login" element={<DirectorLogin/>}/>
+                <Route path="/director" element={<Director/>}/>
                 <Route path="*" element={<Page404/>}/>
             </Routes>
         </Router>
