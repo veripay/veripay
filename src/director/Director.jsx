@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import {Component, useEffect, useState} from "react";
 // import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import './Director.css';
+import Database from "../Database.jsx";
 
 class Director extends Component {
   constructor(props) {

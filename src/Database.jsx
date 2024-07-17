@@ -58,12 +58,22 @@ export default class Database {
   }
 
   async createEventForAll(name, type, start, end, payment, locationId) {
-    //TODO add event to all athletes
+    return Promise.all(this.getAthletes().map(({athleteId}) =>
+        this.getModels().Event.create({
+          name,
+          type,
+          start,
+          end,
+          payment,
+          locationId,
+          athleteId
+        })
+    ))
   }
 
   async createAthlete(name, email, password) {
     return this.client.models.Athlete.create({
-      name, email, password, events: [], transactions: [] //TODO is this right for arrays
+      name, email, password
     });
   }
 
