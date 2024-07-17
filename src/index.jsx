@@ -6,8 +6,7 @@ import {Route, Routes} from "react-router";
 import {BrowserRouter as Router} from "react-router-dom"
 import Page404 from "./Page404.jsx";
 import App from "./app/App.jsx";
-import DirectorPage from "./director/DirectorPage.jsx";
-import DirectorLogin from "./director/DirectorLogin.jsx";
+import Director from "./director/Director.jsx";
 import IndexPage from "./home/IndexPage.jsx";
 import outputs from "../amplify_outputs.json";
 import {Amplify} from "aws-amplify";

@@ -9,6 +9,7 @@ It uses AWS Amplify for hosting, auth, API, and the database.
  2. Click on "main" deployment
  3. Click deployments
  4. Press "Download amplify_outputs.json".
+ 5. Run `npm run dev`
 
 ### Back-End Local Dev
 

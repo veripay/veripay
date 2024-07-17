@@ -8,7 +8,7 @@ export default function IndexPage() {
         <div className="choice-card">
             <h1 className={"director"}>I am a...</h1>
             <Link className="choice" to="/app">Athlete</Link>
-            <Link className="choice" to="/director/login">Director</Link>
+            <Link className="choice" to="/director">Director</Link>
         </div>
     </div>
 

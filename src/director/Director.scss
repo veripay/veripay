@@ -1,0 +1,146 @@
+main {
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+main * {
+  text-align: center;
+}
+
+div.header {
+  background: white;
+  display: flex;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+div.header > img {
+  width: 48px;
+  filter: invert(1);
+}
+
+div.header > h1 {
+  margin: 0px;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 26px;
+}
+
+button.signout {
+  margin: 0 !important;
+  padding: 0 20px !important;
+  height: 48px;
+}
+
+div.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #0001;
+  border-radius: 5px;
+  margin: 8px 0;
+  padding: 5px 10px 5px 15px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+li * {
+  text-align: left;
+}
+
+.location-name {
+  font-weight: bold;
+}
+
+div.section {
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px;
+  padding: 20px;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+div.section input {
+  margin: 4px 0;
+}
+
+div.section p {
+  margin: 0 !important;
+}
+
+[data-amplify-authenticator] {
+  height: 100%;
+}
+
+[data-amplify-router] {
+  background: white;
+  border-radius: 8px;
+  border: none !important;
+}
+
+.amplify-button--primary,
+button[type="submit"],
+button.signout {
+  color: white;
+  background: black;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.amplify-button--primary:hover,
+button[type="submit"]:hover,
+button.signout:hover {
+  background: #222;
+}
+
+button.delete {
+  border-radius: 100%;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.amplify-button--link {
+  color: #ff0000cf;
+}
+
+.amplify-tabs__list {
+  border: none;
+}
+
+.amplify-tabs__item {
+  border: none;
+  padding-top: 20px;
+}
+
+.amplify-tabs__item--active {
+  border-bottom: 1px solid #ff000074;
+  color: #ff0000cf;
+}
+
+.amplify-input {
+  padding: 0.75rem;
+  border: 1px solid #dddfe2;
+  border-radius: 6px;
+  font-size: 1rem;
+}
