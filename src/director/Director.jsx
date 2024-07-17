@@ -24,7 +24,7 @@ class Director extends Component {
 
             <div class="content">
               <div class="section">
-                <h2>Events</h2>
+                <h2>Events 🏅</h2>
 
                 <form onSubmit={(e) => {
                   e.preventDefault();
@@ -40,16 +40,25 @@ class Director extends Component {
                   e.target.reset();
                 }}>
                   <input name="name" type="text" placeholder="Event Name" required />
-                  <input name="type" type="text" placeholder="Type" required />
+                  <select name="type">
+                      <option value="Practice">Practice</option>
+                      <option value="Class">Class</option>
+                      <option value="Tutoring">Tutoring</option>
+                  </select>
                   <input name="start" type="datetime-local" required />
                   <input name="end" type="datetime-local" required />
                   <input name="payment" type="number" step="0.01" placeholder="Payment" required />
+                  <select name="location">
+                    {this.database.locations.map((location) => (
+                      <option value={location.id}>{location.name}</option>
+                    ))}
+                  </select>
                   <button type="submit">Create Event</button>
                 </form>
               </div>
 
               <div class="section">
-                <h2>Locations</h2>
+                <h2>Locations 📍</h2>
 
                 <ul>
                   {this.database.locations.map((location) => (
@@ -59,7 +68,7 @@ class Director extends Component {
                         <p>{location.lat} {location.long} {location.radius}</p>
                       </div>
                       <div style={{ background: location.color }} class="location-color"></div>
-                      <button class="delete" onClick={() => deleteLocation(location.id)}>-</button>
+                      <button class="delete" onClick={() => this.database.deleteLocation(location.id)}>-</button>
                     </li>
                   ))}
                 </ul>
@@ -86,15 +95,15 @@ class Director extends Component {
               </div>
 
               <div class="section">
-                <h2>Athletes</h2>
+                <h2>Athletes 🏃</h2>
 
                 <ul>
                   {this.database.athletes.map((athlete) => (
                     <li key={athlete.id} class="athlete">
                       <div class="athlete-info">
-                        {athlete.name} {athlete.email}
+                        <b>{athlete.name}</b> {athlete.email}
                       </div>
-                      <button class="delete" onClick={() => deleteAthlete(athlete.id)}>-</button>
+                      <button class="delete" onClick={() => this.database.deleteAthlete(athlete.id)}>-</button>
                     </li>
                   ))}
                 </ul>

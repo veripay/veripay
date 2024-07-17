@@ -57,7 +57,7 @@ export default class Database {
     return this.client.models.Location.delete({ id });
   }
 
-  async createEventForAll(name, type, start, end, payment, locationId) {
+  async createEvent(name, type, start, end, payment, locationId) {
     return await Promise.all(this.getAthletes().map(({athleteId}) =>
         this.getModels().Event.create({
           name,
@@ -75,6 +75,10 @@ export default class Database {
     return await this.client.models.Athlete.create({
       name, email, password
     });
+  }
+
+  async deleteAthlete(id) {
+    return this.client.models.Athlete.delete({ id });
   }
 
   async updateLocations() {
