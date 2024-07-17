@@ -58,7 +58,7 @@ export default class Database {
   }
 
   async createEventForAll(name, type, start, end, payment, locationId) {
-    return Promise.all(this.getAthletes().map(({athleteId}) =>
+    return await Promise.all(this.getAthletes().map(({athleteId}) =>
         this.getModels().Event.create({
           name,
           type,
@@ -72,7 +72,7 @@ export default class Database {
   }
 
   async createAthlete(name, email, password) {
-    return this.client.models.Athlete.create({
+    return await this.client.models.Athlete.create({
       name, email, password
     });
   }
