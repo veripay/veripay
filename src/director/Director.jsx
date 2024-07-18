@@ -16,27 +16,30 @@ class Director extends Component {
       <Authenticator>
         {({ signOut }) => (
           <main>
-            <div class="header">
-              <img src="../../public/logo512.png" />
+            <div className="header">
+              <img src="/logo512.png" />
               <h1>Director Dashboard</h1>
-              <button class="signout" onClick={signOut}>Sign Out</button>
+              <button className="signout" onClick={signOut}>Sign Out</button>
             </div>
 
-            <div class="content">
-              <div class="section">
+            <div className="content">
+              <div className="section">
                 <h2>Events 🏅</h2>
 
                 <form onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.target);
+                  console.log(
+                  formData.get("date"),
+                  formData.get("start"))
                   this.database.createEvent(
                     formData.get('name'),
                     formData.get('type'),
-                    new Date(formData.get('start')),
-                    new Date(formData.get('end')),
+                    new Date(`${formData.get("date")}T${formData.get('start')}`).toISOString(),
+                    new Date(`${formData.get("date")}T${formData.get('end')}`).toISOString(),
                     Number(formData.get('payment')),
                     formData.get('location')
-                  );
+                  ).then(console.log).catch(console.e);
                   e.target.reset();
                 }}>
                   <input name="name" type="text" placeholder="Event Name" required />
@@ -45,8 +48,9 @@ class Director extends Component {
                       <option value="Class">Class</option>
                       <option value="Tutoring">Tutoring</option>
                   </select>
-                  <input name="start" type="datetime-local" required />
-                  <input name="end" type="datetime-local" required />
+                  <input name="date" type="date" required />
+                  <input name="start" type="time" required />
+                  <input name="end" type="time" required />
                   <input name="payment" type="number" step="0.01" placeholder="Payment" required />
                   <select name="location">
                     {this.database.locations.map((location) => (
@@ -57,18 +61,18 @@ class Director extends Component {
                 </form>
               </div>
 
-              <div class="section">
+              <div className="section">
                 <h2>Locations 📍</h2>
 
                 <ul>
                   {this.database.locations.map((location) => (
-                    <li key={location.id} class="location">
-                      <div class="location-info">
-                        <p class="location-name">{location.name}</p>
+                    <li key={location.id} className="location">
+                      <div className="location-info">
+                        <p className="location-name">{location.name}</p>
                         <p>{location.lat} {location.long} {location.radius}</p>
                       </div>
-                      <div style={{ background: location.color }} class="location-color"></div>
-                      <button class="delete" onClick={() => this.database.deleteLocation(location.id)}>-</button>
+                      <div style={{ background: location.color }} className="location-color"></div>
+                      <button className="delete" onClick={() => this.database.deleteLocation(location.id)}>-</button>
                     </li>
                   ))}
                 </ul>
@@ -94,16 +98,16 @@ class Director extends Component {
                 </form>
               </div>
 
-              <div class="section">
+              <div className="section">
                 <h2>Athletes 🏃</h2>
 
                 <ul>
                   {this.database.athletes.map((athlete) => (
-                    <li key={athlete.id} class="athlete">
-                      <div class="athlete-info">
+                    <li key={athlete.id} className="athlete">
+                      <div className="athlete-info">
                         <b>{athlete.name}</b> {athlete.email}
                       </div>
-                      <button class="delete" onClick={() => this.database.deleteAthlete(athlete.id)}>-</button>
+                      <button className="delete" onClick={() => this.database.deleteAthlete(athlete.id)}>-</button>
                     </li>
                   ))}
                 </ul>

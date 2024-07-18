@@ -43,12 +43,12 @@ export default class Database {
     return this.client.models;
   }
 
-  async createLocation(name, radius, lat, long, color) {
+  async createLocation(name, lat, long, radius, color) {
     return this.client.models.Location.create({
       name,
-      radius,
       lat,
       long,
+      radius,
       color
     })
   }
@@ -58,7 +58,7 @@ export default class Database {
   }
 
   async createEvent(name, type, start, end, payment, locationId) {
-    return await Promise.all(this.getAthletes().map(({athleteId}) =>
+    return await Promise.all(this.getAthletes().map(({id}) =>
         this.getModels().Event.create({
           name,
           type,
@@ -66,7 +66,8 @@ export default class Database {
           end,
           payment,
           locationId,
-          athleteId
+          athleteId: id,
+          attended: false
         })
     ))
   }
