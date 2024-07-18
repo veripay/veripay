@@ -207,4 +207,21 @@ export default class Database {
       isBankDeposit: true,
     });
   }
+
+  getCurrentEvent() {
+    if (this.loggedInAthlete !== null) {
+      let now = new Date();
+      let events = this.getEvents();
+
+      return events.find(({start, end}) => new Date(start) < now && now < new Date(end));
+    }
+    return undefined;
+  }
+
+  async updateIsAttended(eventId, attended) {
+    return await this.getModels().Event.update({
+      id: eventId,
+      attended
+    })
+  }
 }

@@ -8,7 +8,7 @@ import SchedulePage from "./schedulepage/SchedulePage.jsx";
 import WalletPage from "./walletpage/WalletPage.jsx";
 import Cookies from "js-cookie";
 import AthleteLoginPage from "./athleteloginpage/AthleteLoginPage.jsx";
-import {withRouter} from "./utils.jsx";
+import {isPointInGeofence, withRouter} from "./utils.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -56,33 +56,25 @@ class App extends Component {
 
     this.updateLocation();
     this.databaseConnection.isNewUpdate().then(isNew => isNew ? this.setState({}) : null)
-
-
-
-    // let nextEvent = this.databaseConnection.getNextEvent(new Date());
-    //
-    // if (nextEvent !== null) {
-    //   nextEvent.callback = setTimeout(() => this.startCheckEvent(nextEvent), 1000 /*(nextEvent.startTime * 1000) - (new Date())*/);
-    //   // nextEvent.totalChecks = 0;
-    //   // nextEvent.passedChecks = 0;
-    //
-    //   this.setState({nextEvent});
-    // }
-  }
-
-  startCheckEvent(event) {
-    console.log("checking", event, new Date());
   }
 
   updateLocation() {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(pos => {
+      navigator.geolocation.getCurrentPosition(({coords}) => {
         this.setState({latlong: [
-            pos.coords.latitude,
-            pos.coords.longitude
-            // 38.829008416216084, -77.07319429791512
-          ]
-        });
+            coords.latitude,
+            coords.longitude
+          ]});
+
+        let currentEvent = this.databaseConnection.getCurrentEvent();
+        if (currentEvent !== undefined) {
+          let location = this.databaseConnection.getLocationQuick(currentEvent.locationId);
+          let isInLoc = isPointInGeofence(location, coords);
+
+          if (isInLoc !== currentEvent.attended) {
+            this.databaseConnection.updateIsAttended(currentEvent.id, isInLoc).then(console.log).then(() => this.databaseConnection.updateEvents()).catch(console.error);
+          }
+        }
       }, (err) => {
         console.error("Error obtaining geolocation", err);
       });

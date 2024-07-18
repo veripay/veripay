@@ -3,6 +3,7 @@ import { Authenticator } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
 import './Director.scss';
 import Database from "../Database.jsx";
+import {Link} from "react-router-dom";
 
 class Director extends Component {
   constructor(props) {
@@ -17,7 +18,9 @@ class Director extends Component {
         {({ signOut }) => (
           <main>
             <div className="header">
-              <img src="/logo512.png" />
+              <Link to={"/"}>
+                <img src="/logo512.png" />
+              </Link>
               <h1>Director Dashboard</h1>
               <button className="signout" onClick={signOut}>Sign Out</button>
             </div>
@@ -39,7 +42,7 @@ class Director extends Component {
                     new Date(`${formData.get("date")}T${formData.get('end')}`).toISOString(),
                     Number(formData.get('payment')),
                     formData.get('location')
-                  ).then(console.log).catch(console.e);
+                  ).then(console.log).catch(console.error);
                   e.target.reset();
                 }}>
                   <input name="name" type="text" placeholder="Event Name" required />
