@@ -153,8 +153,15 @@ export default class Database {
     return this.athletes;
   }
 
-  getLoggedInAthlete() {
-    return this.athletes.find(({ id }) => this.loggedInAthlete === id);
+  getLoggedInAthlete(callbackToLogout) {
+    let athlete = this.athletes.find(({ id }) => this.loggedInAthlete === id);
+
+    if (athlete === undefined) {
+      this.logOutAthlete();
+      callbackToLogout();
+    }
+
+    return athlete;
   }
 
   getLocationQuick(locationId) {

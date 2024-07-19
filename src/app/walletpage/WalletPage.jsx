@@ -26,7 +26,7 @@ export default class WalletPage extends Component {
     return <>
       <div className="top-bar">
         <img src={defaultProfileImage} alt="Profile" onClick={this.logout}/>
-        <h3>{this.props.database.loaded ? this.props.database.getLoggedInAthlete().name : ""}</h3>
+        <h3>{this.props.database.loaded ? this.props.database.getLoggedInAthlete(this.logout).name : ""}</h3>
         <Link className={"material-symbols-rounded settings-gear"} >
           Settings
         </Link>
