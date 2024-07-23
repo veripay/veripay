@@ -21,8 +21,8 @@ class Director extends Component {
               <Link to={"/"}>
                 <img src="/logo512.png" />
               </Link>
-              <h1>Director Dashboard</h1>
-              <button className="signout" onClick={signOut}>Sign Out</button>
+              <h2>Admin Dashboard</h2>
+              <button className="signout" onClick={signOut}>Log Out</button>
             </div>
 
             <div className="content">
@@ -51,9 +51,11 @@ class Director extends Component {
                       <option value="Class">Class</option>
                       <option value="Tutoring">Tutoring</option>
                   </select>
-                  <input name="date" type="date" required />
-                  <input name="start" type="time" required />
-                  <input name="end" type="time" required />
+                  <div className="time-group">
+                    <input name="date" type="text" placeholder="Date" style={{width: "50%"}} onFocus={e => e.target.type="date"} onBlur={e => e.target.type="text"} required />
+                    <input name="start" type="text" placeholder="Start" style={{width: "23.5%"}} onFocus={e => e.target.type="time"} onBlur={e => e.target.type="text"} required />
+                    <input name="end" type="text"  placeholder="End" style={{width: "23.5%"}} onFocus={e => e.target.type="time"} onBlur={e => e.target.type="text"} required />
+                  </div>
                   <input name="payment" type="number" step="0.01" placeholder="Payment" required />
                   <select name="location">
                     {this.database.locations.map((location) => (

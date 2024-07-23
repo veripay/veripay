@@ -7,7 +7,6 @@ button {
 
 .schedule-container {
   height: calc(100% - 64px);
-  overflow-y: scroll;
   position: relative;
 }
 
@@ -64,10 +63,11 @@ button {
   display: flex;
   position: sticky;
   top: 0;
-  border-bottom: solid lightgray 4px;
+  //border-bottom: solid lightgray 4px;
   padding: 16px;
   background-color: $background-color;
   z-index: 1000;
+  box-shadow: 0 4px 16px hsl(0deg 0% 0% / 0.38);
 
   div {
     display: flex;
@@ -75,7 +75,7 @@ button {
     align-items: center;
   }
 
-  h1, h2 {
+  h1, h2, h3 {
     margin: 0;
     width: fit-content;
   }
@@ -127,4 +127,6 @@ button {
 
 .background-div {
   position: relative;
+  overflow-y: scroll;
+  height: calc(100% - 99px);
 }

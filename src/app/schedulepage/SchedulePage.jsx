@@ -56,8 +56,8 @@ function FormatHeaderDate({date}) {
     let formatterMonthDay = new Intl.DateTimeFormat('en-US', {month: 'long', day: 'numeric'});
 
     return <div>
-        <h1>{formatterDay.format(date)}</h1>
-        <h2>{formatterMonthDay.format(date)}</h2>
+        <h2>{formatterDay.format(date)}</h2>
+        <h3>{formatterMonthDay.format(date)}</h3>
     </div>;
 }
 
