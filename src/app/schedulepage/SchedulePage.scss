@@ -63,11 +63,12 @@ button {
   display: flex;
   position: sticky;
   top: 0;
-  //border-bottom: solid lightgray 4px;
   padding: 16px;
   background-color: $background-color;
   z-index: 1000;
   box-shadow: 0 4px 16px hsl(0deg 0% 0% / 0.38);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 
   div {
     display: flex;

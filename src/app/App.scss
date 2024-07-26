@@ -39,3 +39,32 @@
     }
   }
 }
+
+.banner {
+  background-color: $good-color;
+  position: fixed;
+  z-index: 10000;
+  top: 36px;
+  left: 36px;
+  right: 36px;
+  border-radius: 16px;
+  padding: 12px;
+  transition: 0.4s ease-in-out;
+  cursor: pointer;
+
+
+  &.hidden {
+    transform: translateY(-150px);
+  }
+
+  .banner-content {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  h3, p {
+    margin: 0;
+    text-align: justify;
+    text-align-last: center;
+  }
+}

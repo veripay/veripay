@@ -36,10 +36,13 @@ export function formatDateShort(date) {
   }).format(date);
 }
 
-// export function NavigateWrapper() {
-//   let navigate = useNavigate();
-//
-// }
+export function formatTimeHHMM(time) {
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  }).format(time)
+}
 
 export const withRouter = WrappedComponent => props => {
   const navigate = useNavigate();

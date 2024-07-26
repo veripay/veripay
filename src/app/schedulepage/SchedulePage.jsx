@@ -77,7 +77,7 @@ function Event({name, start, end, payment, locationId, attended}) {
     let pastEvent = new Date() > endDate;
 
     return (
-        <div className={"event-container " + (attended ? "attended" : (pastEvent ? "missed" : ""))}
+        <div className={"event-container " + (pastEvent ? (attended ? "attended" : "missed") : "")}
              style={{height: (hours * hourBlockHeight) + "px", top: (hourBlockHeight * (startHours + 0.5)) + "px"}}>
             <p><b>{name}</b></p>
             <p>{formatTime(startDate)} - {formatTime(new Date(end))}</p>

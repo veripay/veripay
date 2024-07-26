@@ -17,6 +17,8 @@ export default class Database {
 
     this.updatePromise = null;
     this.loaded = false;
+
+    this.lastCurrentEvent = undefined;
   }
 
   async isNewUpdate() {
@@ -223,6 +225,22 @@ export default class Database {
       return events.find(({start, end}) => new Date(start) < now && now < new Date(end));
     }
     return undefined;
+  }
+
+  checkEventJustEnded() {
+    if (this.loggedInAthlete !== null) {
+      let curEvent = this.getCurrentEvent();
+      let lastEvent = this.lastCurrentEvent;
+
+      this.lastCurrentEvent = curEvent;
+
+      if (lastEvent !== undefined && (curEvent === undefined || curEvent.id !== lastEvent.id)) {
+        return lastEvent;
+      }
+      return false;
+
+    }
+    return false;
   }
 
   async updateIsAttended(eventId, attended) {
